@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cakeon.website.mapper.MemberMapper">
+	
+ 	<!-- 회원 찾기 -->
+    <select id="selectMember" resultType="com.cakeon.website.vo.MemberVO">
+        SELECT * from cakeon_member where email = #{email} 
+        and passwd = #{passwd}
+    </select>
+    <select id="selectMemberPoint" resultType="com.cakeon.website.vo.MemberPointVO">
+    	SELECT * from cakeon_member_point where member_id = #{member_id}
+    </select>
+    
+    <insert id="insertMember" parameterType="HashMap">
+    	<![CDATA[
+    		insert into cakeon_member (email, passwd, remember, locked, regidate) 
+    		values(
+    		'${email}', 
+    		'${passwd}',
+    		#{remember},
+    		#{locked},
+    		'${regidate}')
+    	]]>
+    </insert>
+    
+    <insert id="insertMemberPoint" parameterType="com.cakeon.website.vo.MemberPointVO">
+    	<![CDATA[
+    		insert into cakeon_member_point (member_id, point) 
+    		values(
+    		#{member_id},
+    		#{point})
+    	]]>
+    </insert>
+    
+</mapper>
